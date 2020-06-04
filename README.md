@@ -36,3 +36,5 @@ expo install expo-constants
     expo install react-native-svg
 
 min 1:06
+
+https://www.youtube.com/watch?time_continue=284&v=xYeaHqpTo3Y&feature=emb_title
