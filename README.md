@@ -35,6 +35,28 @@ expo install expo-constants
 
     expo install react-native-svg
 
-min 1:06
+
+# Localização do usuário
+
+    expo install expo-location
 
 https://www.youtube.com/watch?time_continue=284&v=xYeaHqpTo3Y&feature=emb_title
+
+
+1:48
+
+
+http://localhost:3333/points
+
+Inserir ponto de coleta
+
+    {
+        "name": "Mercado ",
+        "email": "contato@imperatiz.com.br",
+        "whatsapp": "92995555555",
+        "latitude" : -45685656,
+        "longitude": -25353542,
+        "city": "Manaus",
+        "uf": "AM",
+        "items": [6]
+    }
