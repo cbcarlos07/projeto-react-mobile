@@ -21,8 +21,7 @@ interface objSelecte{
 
 const Home = () =>{
     const [selectedUf, setSelectedUf] = useState('0')
-    const [ selectedCity, setSelectedCity ] = useState('0')
-    const [city, setCity] = useState('')
+    const [ selectedCity, setSelectedCity ] = useState('0')    
     const navigation = useNavigation()
     const [ufs, setUfs] = useState<objSelecte[]>([])
     const [ cityes, setCities ] = useState<objSelecte[]>([])
