@@ -60,3 +60,13 @@ Inserir ponto de coleta
         "uf": "AM",
         "items": [6]
     }
+
+# Mail
+
+    https://docs.expo.io/versions/latest/sdk/mail-composer/
+
+# Select option
+
+    https://www.npmjs.com/package/react-native-picker-select
+
+    https://snack.expo.io/@liscott327/react-native-picker-select---example

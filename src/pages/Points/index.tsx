@@ -1,48 +1,76 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Alert } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import  Constants  from 'expo-constants'
 import MapView, { Marker } from 'react-native-maps'
 import { Feather as Icon } from '@expo/vector-icons'
 import { SvgUri } from 'react-native-svg'
 import * as Location from 'expo-location'
 import api from '../../services/api'
+import axios from 'axios'
 
 
+  interface Item {
+    id: number
+    title: string
+    image_url: string
+  }
 
-interface Item {
-  id: number
-  title: string
-  image_url: string
-}
+  interface Points {
+    id: number
+    name: string
+    image: string
+    latitude: number
+    longitude: number
+    
 
-interface Points {
-	id: number
-	name: string
-	image: string
-	latitude: number
-	longitude: number
-	
+  }
 
-}
+  interface Params {
+    uf: string
+    city: string
+  }
+
+  interface IBGEUfResponse {
+    sigla: string
+  }
+
+  interface IBGECityResponse{
+    city: string
+  }
+
 
 const Points = () => {
+  const routes = useRoute()
+  const routeParam = routes.params as Params
+
 	const navigation = useNavigation()
 	const [ selectedItems, setSelectedItem] = useState<number[]>([])
 	const [ items, setItems ] = useState<Item[]>([])
 	const [ initialPosition, setInitialPosition ] = useState<[number, number]>([0,0])
-	const [ points, setPoints ] = useState<Points[]>([])
+  const [ points, setPoints ] = useState<Points[]>([])
+  
+  const [ ufs, setUfs] = useState<string[]>([])
+
+  useEffect(()=>{
+    axios.get<IBGEUfResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+         .then( response =>{
+           const ufInitials = response.data.map( uf => uf.sigla )
+           setUfs( ufInitials )
+         })
+  },[])
+
 	useEffect(()=>{
 		api.get('points', {
 			params: {
-				city: 'Manaus',
-				uf: 'AM',
-				items: [6]
+				city: routeParam.city,
+				uf: routeParam.uf,
+				items: selectedItems
 			}
 		}).then( response =>{
 			setPoints( response.data )
 		})
-	})
+	}, [selectedItems])
 	useEffect(()=>{
 		async function loadPosition(){
 			const { status } = await Location.requestPermissionsAsync()
